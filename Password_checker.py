@@ -16,4 +16,35 @@ logging.basicConfig(filename='password_checker.log', level=logging.INFO, format=
 
 
 class Wordlist:
-    _cache = {} # Class variable to cache loaded wordlists
+
+    # Class variable to cache loaded wordlists
+    _cache = {} 
+
+    def __init__(self,file_path):
+        self.file_path = file_path
+        self.words = self.load_wordlist()
+
+    def load_wordlist(self):
+        # Check if the wordlist is already cached
+        if self.file_path in self._cache:
+            return self._cache[self.file_path]
+        
+        try:
+            with open(self.file_path, 'r',encoding='utf-8') as file:
+                Wordlist = [line.strip() for line in file ]
+                self._cache[self.file_path] = Wordlist
+                return Wordlist
+        except FileNotFoundError as e:
+            raise FileNotFoundError(f"Error: File '{self.file_path}' not found.") from e
+        except Exception as e:
+            raise RuntimeError(
+                f"Error loading worklist from {self.file_path}: {str(e)}"
+            )from e
+        
+        
+        def is_word_in_list(self,word):
+            return word in self.words
+
+
+
+
