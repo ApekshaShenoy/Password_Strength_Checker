@@ -45,6 +45,17 @@ class Wordlist:
         def is_word_in_list(self,word):
             return word in self.words
 
+    # pylint: disable=R0903
+    class StrengthResult:
+        def __init__(self,strength:str,score:int,feedback:str):
+            self.strength = strength
+            self.score = score
+            self.feedback = feedback
+
+    
+    
+
+
 
 
 
