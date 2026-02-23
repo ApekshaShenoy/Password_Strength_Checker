@@ -52,8 +52,23 @@ class Wordlist:
             self.score = score
             self.feedback = feedback
 
-    
-    
+class PasswordStrength:
+
+    def __init__(self, weak_wordlist_path: str = "./weak_passwords.txt",
+        banned_wordlist_path: str = "./banned_passwords.txt"):
+        self.weak_wordlist = (Wordlist(weak_wordlist_path)
+            if weak_wordlist_path else None)
+        self.banned_wordlist = (Wordlist(banned_wordlist_path)
+            if banned_wordlist_path else None)
+        self.min_password_length = 12
+        self.strength_mapping = {
+            0: "Very Weak",
+            1: "Weak",
+            2: "Moderate",
+            3: "Strong",
+            4: "Very Strong"
+
+        }
 
 
 
