@@ -70,6 +70,19 @@ class PasswordStrength:
 
         }
 
+    @lru_cache(maxsize=1000)
+    def check_password_strength(self, password: str) :
+        """Check the strength of a given password."""
+        if len(password) < self.min_password_length:
+            return StrengthResult("Too short", 0, "Password should be at least 12 characters long.")
+
+        if self.weak_wordlist and self.weak_wordlist.is_word_in_list(password):
+            return StrengthResult("Weak", 0, "Password is commonly used and easily guessable.")
+
+        if self.banned_wordlist and self.banned_wordlist.is_word_in_list(password):
+            return StrengthResult("Banned", 0,
+                "This password is not allowed, as it is commonly found in data leaks.")
+
 
 
 
